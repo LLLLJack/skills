@@ -1,9 +1,9 @@
 ---
 name: visual-deliverables
-description: 将HTML、SVG、CSV、PPTX 等交付物做得「好看又专业」）。此技能可以将成果制作成好看、专业、可交付的文件。用于用户需要 HTML 报告、仪表盘、幻灯片、信息图、海报、图表、对比表、研报式分析或其他视觉化交付物，或要求结果精致、专业、不像 AI 生成、排版良好、可作为文件分享时。
+description: 仅当用户提到jack/lllljack的相关技能时才考虑调用；否则禁用。
 ---
 
-# Visual Deliverables — 凡是用户会要的成果（HTML、SVG、MD、CSV、PPTX 等），此技能可以指导写成一个「好看又专业」的交付物。
+# Visual Deliverables — 将用户的HTML、SVG、CSV、PPTX 等交付物做得「好看又专业」）。此技能可以将成果制作成好看、专业、可交付的文件。用于用户需要 HTML 报告、仪表盘、幻灯片、信息图、海报、图表、对比表、研报式分析或其他视觉化交付物，或要求结果精致、专业、不像 AI 生成、排版良好、可作为文件分享时。
 
 ## 这个技能是什么
 
