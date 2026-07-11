@@ -1,241 +1,123 @@
 # Slide Deck Guidelines
 
-> Portable reference. 产出幻灯片 / 演示文稿时遵循。
-> 适用于 16:9 演示场景（投影、Zoom、手机）。
+幻灯片是现场阅读媒介，不是分页文档。每页承担一个观点，整套共同完成一条叙事。
 
-ROLE: You are a professional slide deck designer.
-GOAL: Produce slides that are readable in real conditions (projector, Zoom, mobile).
-PRIORITY: Clarity > Readability > Hierarchy > Simplicity.
+## 1. 先做 Deck Brief
 
-CRITICAL — FIRST PRIORITY
-INPUT: Brand guidelines will be given but are NOT slide-optimized.
-RULE: Always adapt brand for slides (bigger fonts, more spacing, change more if needed). Never sacrifice readability.
+开始排版前确定：
 
-CORE RULES:
-- One idea per slide.
-- Slides are visual aids, not documents.
-- If content doesn't fit at required sizes: split or remove. Never shrink fonts.
-- Consistency > creativity. Reduce cognitive load.
+- 场景：路演、汇报、答辩、发布会、培训或异步阅读
+- 受众与观看距离
+- 演讲时长、目标页数和最终格式
+- 必须使用的品牌、素材、数据和来源
+- 听众离场时应记住的 1–3 件事
 
-CRITICAL – TYPOGRAPHY:
-- Max 2 font families.
-- Body >=28px (prefer 28–36).
-- Titles >=56px (prefer 56–80).
-- Section headings >=40px (prefer 40–56).
-- Captions/labels >=22px. NEVER below 22px — if content doesn't fit, split or remove.
-- Key data numbers 56–96px (prefer dramatically large, up to 120+ for single hero KPI).
-- Use weight, not many sizes.
-- Avoid ALL CAPS except labels.
-- Line-height: prefer `lineHeight: "AUTO"`. If explicit, use PIXEL values (e.g. Body 28 → `lineHeight: 36`, Title 56 → `lineHeight: 64`). NEVER use unit-less multipliers like `1.2` / `1.4` / `1.6`.
-- High contrast always.
+用户没有规定页数时，根据时间和内容估算，不为了“完整”堆页。
 
-LAYOUT & SPACING:
-- Use grid. Align everything.
-- Generous whitespace.
-- No clutter.
-- Apply CRAP: Contrast, Repetition, Alignment, Proximity.
+## 2. 先写逐页故事板
 
-COLOR:
-- 2–3 core colors + neutrals.
-- High contrast text/bg mandatory.
-- Accent only for emphasis.
-- Body text neutral.
-- Colorblind-safe if possible.
+每页写三项：
 
-VISUALS & DATA:
-- Visuals support meaning, not decoration.
-- Prefer custom visuals to stock.
-- Charts > text for data.
-- One insight per chart.
-- Simplify charts (no junk).
-- Highlight key datapoint.
-- Icons consistent style/size.
+```text
+Takeaway title: 本页要证明的完整结论
+Evidence: 支撑结论的数字、图、例子或逻辑
+Visual form: 该证据最适合的版式/视觉
+```
 
-FORMAT:
-- 16:9, 1920x1080.
-- Keep content >=100px from edges.
+检查：
 
-CONTENT DENSITY:
-- One message per slide.
-- Short phrases > sentences.
-- No paragraphs.
-- Title states takeaway.
-- Details go to notes/appendix.
+- 相邻页面是否在推进，而不是重复表达？
+- 每 2–4 页是否有一次视觉能量变化？
+- 开场是否建立张力，结尾是否回收主线并给出行动？
+- 细节是否应该放到备注或附录？
 
-CONTEXT:
-- Corp=structured.
-- Startup=minimal, bold.
-- Marketing=benefit-driven.
-- Internal=slightly denser.
-- Keynote=very visual.
-(Rules above always apply.)
+## 3. 建立母版系统
 
-LAYOUT CONTRACTS (use IDs, follow strictly):
+- 默认 16:9；用户有模板或格式要求时优先遵循。
+- 安全边距通常不少于画布短边的 6–8%。
+- 定义标题、正文、标签、数字、脚注五个角色。
+- 舞台型 1920×1080 参考起点：标题 56–80px，正文 28–36px，标签/脚注 20–24px，关键数字 72–140px。
+- 最多 2 个字体家族，2–3 个核心色加中性色。
+- 建立页码、章节标识、来源、图表和图片裁切规则。
+- 选择一个贯穿全稿的 signature move，例如纵向索引、圆形裁切、工程标注或超大编号。
 
-L01:
-Intent=Cover
-Grid=CenterStack
-Content=Title(64-96,Bold); Subtitle(32-40); Meta(24-28)
-Rules=CenterXY; PlentySpace; NoExtras
+放不下时拆页或删减，绝不为了塞内容持续缩小字体。
 
-L02:
-Intent=BoldCover
-Grid=LeftBlock
-Content=Title(72-96,Max2Lines); Subtitle(32-40); Meta(24-28)
-Rules=LeftMargin~120; Logo=BR; NoClutter
+## 4. 版式原型
 
-L03:
-Intent=SectionBreak
-Grid=Center
-Content=Label(28,Muted); Title(56-72)
-Rules=OnlyThese2; MaxWhitespace
+根据证据选择，不要轮流机械套模板：
 
-L04:
-Intent=KeyStatement
-Grid=Center
-Content=Statement(48-64,Max2Lines); OptionalAttribution(28)
-Rules=Only1Message
+### S01 Statement Cover
 
-L05:
-Intent=Concept+Visual
-Grid=2col(50/50)
-Left=Title(40-48)+Body(28-32,Max4Lines)
-Right=Image
-Rules=Gap>=40; CenterY; NoOverflow
+一句主张或标题 + 极少元信息；视觉或字体承担情绪。用于封面与结尾。
 
-L06:
-Intent=Concept+Visual
-Grid=2col(50/50)
-Left=Image
-Right=Title(40-48)+Body(28-32,Max4Lines)
-Rules=Mirror(L05)
+### S02 Section Marker
 
-L07:
-Intent=3Pillars
-Grid=3col
-Each=Visual+Label(32)+Desc(24,Max2Lines)
-Rules=EqualWidth; SameTopY; Gap=30-50
+章节编号、短标题和一个母题元素。用于叙事转场。
 
-L08:
-Intent=Compare2
-Grid=2col
-Each=Heading(32-40)+Points(28,2-4)
-Rules=BalancedContent; Gap=40-60
+### S03 Split Evidence
 
-L09:
-Intent=SingleKPI
-Grid=CenterStack
-Content=Label(28,Muted); Number(120-200); Context(28-32)
-Rules=NumberIsHero; NothingCompetes
+一侧结论与短说明，另一侧图片、产品或图表。适合概念解释和案例。
 
-L10:
-Intent=TwoKPIs
-Grid=2col
-Each=Number(96-120)+Label(28)
-Rules=EqualWeight
+### S04 Hero Number
 
-L11:
-Intent=ThreeKPIs
-Grid=3col
-Each=Number(72-96)+Label(28)
-Rules=SameBaseline
+一个关键数字占主导，配一句上下文和来源。不要同时放多个同权 KPI。
 
-L12:
-Intent=Quote
-Grid=CenterStack
-Content=Quote(36-48,Max3Lines); Attribution(24-28)
-Rules=GenerousPadding
+### S05 Comparison
 
-L13:
-Intent=Process
-Grid=Row(3-5Steps)
-Each=Icon/Number+Label(32)+Desc(24,1Line)
-Rules=EqualSpacing; SameBaseline
+左右或前后对比，保持维度、基线和信息量对应；差异必须一眼可见。
 
-L14:
-Intent=HeroImage
-Grid=FullBleed
-Content=OverlayTitle(56-72)+Subtitle(28-32)
-Rules=DarkOverlay; HighContrast
+### S06 Process
 
-L15:
-Intent=Matrix4
-Grid=2x2
-Each=Heading(32)+Desc(24)
-Rules=EqualCards; Gap=20-30
+3–5 步流程，方向单一，步骤说明短；复杂流程拆成多页渐进展示。
 
-L16:
-Intent=IconRow
-Grid=Row(3-4)
-Each=Icon+Label(32)+Desc(24,1-2Lines)
-Rules=SameIconSize; AlignBaselines
+### S07 Data + Annotation
 
-L17:
-Intent=Data+Insight
-Grid=Stack
-Content=Chart(~60%H); Insight(28-32,Bold)
-Rules=1Highlight; NoChartJunk
+图表占主要区域，旁边或图上直接标注一个关键洞察。删除图表噪声。
 
-L18:
-Intent=BeforeAfter
-Grid=2col+Arrow
-Left=Before(Muted)
-Right=After(Strong)
-Rules=ClearContrast
+### S08 Matrix / Framework
 
-L19:
-Intent=List
-Grid=Stack
-Content=Title(48); Items(28-32,3-5)
-Rules=NoWrap; LargeGaps
+2×2 或层级框架；每格使用短标签和必要解释，不写段落。
 
-L20:
-Intent=Closing
-Grid=CenterStack
-Content=Headline(56-72); Sub(28-32); Contact(24-28)
-Rules=Clean; FinalImpression
+### S09 Image Stage
 
-OPENING & CLOSING SLIDES:
-- First and last slides are STATEMENTS — emotional, not informational.
-- Combine a strong visual with powerful words. Image + text working together.
-- These set the tone (opening) and leave the lasting impression (closing).
-- Aim for feeling, not facts.
+一张高质量图片或渲染占 60% 以上，文字落在 quiet zone。适合情绪、场景和产品展示。
 
-TEXT-ONLY SLIDES:
-- When a slide has no visual, let typography do the emotional heavy lifting.
-- Be courageous: oversized type, unexpected alignment, asymmetric layout.
-- Break the grid if it serves the message. Unusual ≠ unreadable.
-- The text IS the visual — treat it as such.
+### S10 Editorial List
 
-IMAGES:
-- Optional: generate an image that captures the feeling or mood of the slide.
-- Best for: cover slides, section breaks, closing slides, concept+visual layouts.
-- Style: photo or graphic render — must match the active style guide's palette, mood, and aesthetic.
-- The image should evoke emotion, not illustrate literally. Abstract > obvious.
-- Pick one style per deck and stay consistent (all photo or all render).
-- Pull colors, textures, and tone from the style guide — the image should feel native to the deck.
-- Photo: cinematic, high-quality, shallow depth-of-field or dramatic lighting.
-- Render: 3D, isometric, gradient mesh, or stylized illustration — bold and clean.
-- Avoid: generic stock, clip art, overly busy compositions, text inside images.
-- Image should complement the message — never compete with it.
-- Use as background (with overlay) or as a contained visual in a split layout.
+3–5 条短句沿一个强边线排列，通过编号、字重或留白形成节奏。
 
-SELECTION (which contract for which intent):
-- Opening: L01, L02 (emotional statement + visual)
-- Section: L03
-- Statement/Quote: L04, L12
-- Concept+Visual: L05, L06, L14
-- Features: L07, L16
-- Compare: L08, L18
-- KPI: L09, L10, L11
-- Process: L13
-- Matrix: L15
-- Data: L17
-- List: L19
-- Closing: L20 (emotional statement + visual)
+### S11 Timeline
 
-OUTPUT RULES:
-- Be concrete.
-- No theory, no filler.
-- Use sizes, spacing, alignment explicitly.
-- If unclear: ask <=3 questions OR list <=5 assumptions.
+只展示当前叙事需要的关键节点；时间距离有意义时按比例，否则明确使用阶段式时间线。
+
+### S12 Appendix Detail
+
+允许更高密度，但仍保持可扫描的标题、表格和来源。不要把正文页的字体标准无限降低。
+
+## 5. 视觉节奏
+
+- 不连续使用三页相同构图。
+- 在“观点页、证据页、呼吸页”之间交替。
+- 关键章节可以用重复母题建立回忆，但改变尺度或位置。
+- 图片风格保持一致：同一套 deck 不混用写实照片、卡通插画和廉价 3D 图标。
+- 开场和收尾应像声明，不像目录和联系方式页。
+
+## 6. 数据与图像
+
+- 图表标题写结论，来源留在同页。
+- 一页一张主要图表；需要比较多图时统一轴、量级和颜色语义。
+- 图片要承担情绪、证据或场景，不作无关背景。
+- 生成图片时预留文字区域，不生成图片内文字；精确信息保持为可编辑文本。
+- 没有图片工具时使用排版、图表、SVG 或几何系统，不使用低质量图库占位。
+
+## 7. 生成与复检
+
+1. 先创建全部页面的结构和标题，检查故事是否完整。
+2. 建立母版变量和重复组件。
+3. 按页加入证据、视觉和来源。
+4. 导出整套缩略图或 PDF，检查节奏、重复和突兀页面。
+5. 放大封面、数据页和文字最密页，检查裁切、字号和对齐。
+6. 重新打开最终 PPTX/PDF，检查字体替换、元素错位和分页。
+
+最终检查：每页能否用一句话说出结论？站在投影距离是否可读？删掉任一元素是否不影响理解？如果是，删掉它。

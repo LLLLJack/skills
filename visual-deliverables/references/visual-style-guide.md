@@ -1,192 +1,90 @@
-# Visual Style Guide
+# Cross-Medium Visual Foundations
 
-> Portable reference. Use these rules to ensure premium, non-generic visual output on any design surface
-> (HTML page, dashboard, slide, poster, document). De-branded from a team's internal design system.
+这些规则用于所有视觉交付物。它们只提供基础判断；具体的网页、幻灯片或海报仍应遵循对应媒介指南。
 
-## 1. BASELINE CONFIGURATION
+## 1. 用三个旋钮控制输出
 
-* **DESIGN_VARIANCE**: 8 (1=Perfect Symmetry, 10=Artsy Chaos)
-* **MOTION_INTENSITY**: 6 (1=Static/No movement, 10=Cinematic/Magic Physics)
-* **VISUAL_DENSITY**: 4 (1=Art Gallery/Airy, 10=Pilot Cockpit/Packed Data)
+在 Design Contract 中为每项选 1–10，不必展示给用户：
 
-The standard baseline for all designs is strictly set to these values (8, 6, 4). Adapt dynamically based on what the user explicitly requests. Use these values as global variables to drive the design logic below.
+- **Variation**：1 是严格对称与熟悉布局，10 是实验性构图。默认 6。
+- **Density**：1 是画廊式留白，10 是驾驶舱式密集。默认 5。
+- **Motion**：1 是静态，10 是强叙事动效。默认 3；静态交付物固定为 1。
 
-## 2. TYPOGRAPHY
+三个值必须符合场景。管理层报告通常 Variation 4–6 / Density 6–8；品牌封面可以 Variation 7–9 / Density 2–4。
 
-**Display/Headlines:**
-* Large headlines: bold weight, tight tracking, minimal leading.
-* **ANTI-SLOP:** Discourage `Inter` for "Premium" or "Creative" vibes. Prefer distinctive typefaces like `Geist`, `Outfit`, `Cabinet Grotesk`, or `Satoshi`.
-* **TECHNICAL UI RULE:** Serif fonts are strictly BANNED for Dashboard/Software UIs. Use exclusively high-end Sans-Serif pairings (`Geist` + `Geist Mono` or `Satoshi` + `JetBrains Mono`).
+## 2. 先建立视觉层级
 
-**Body/Paragraphs:**
-* Standard body text: neutral gray tone, relaxed leading, max ~65 characters per line for readability.
+- 每个画面只有一个 dominant region。
+- 使用尺度、字重、明暗、位置和留白共同建立层级，不只靠“大标题”。
+- 相邻层级至少有一个明显差异；相同层级共享样式。
+- 先画灰阶块面。灰阶下层级不成立时，颜色也救不了。
 
-**Hierarchy Control:**
-* Do NOT rely solely on massive scale for hierarchy. Control hierarchy with a combination of weight, color contrast, and spacing.
-* Serif fonts ONLY for creative/editorial designs. NEVER use Serif on clean Dashboards.
+## 3. 字体角色
 
-## 3. COLOR CALIBRATION
+- 使用 Display / Body / Numeric 或 Mono 三种角色，而不是随意堆字体。
+- 通常最多 2 个字体家族；等宽数字可作为第三种功能角色。
+- 标题字体表达性可以高，正文必须稳定、易读、字符覆盖完整。
+- 中文与西文混排时检查字面大小和基线；不要只因英文字体漂亮就牺牲中文。
+- 字体不可用时使用同气质的系统回退，不依赖无法访问的在线字体。
+- 正文控制行长和行高；大段居中文字通常难读。
 
-* **Constraint:** Max 1 Accent Color. Saturation < 80%.
-* **THE LILA BAN:** The "AI Purple/Blue" aesthetic is strictly BANNED. No purple button glows, no neon gradients. Use absolute neutral bases (Zinc/Slate tones) with high-contrast, singular accents (e.g., Emerald, Electric Blue, or Deep Rose).
-* **COLOR CONSISTENCY:** Stick to one palette for the entire design. Do not fluctuate between warm and cool grays within the same project.
-* **NO Pure Black:** Never use `#000000`. Use Off-Black, Zinc-950, or Charcoal equivalents.
-* **NO Oversaturated Accents:** Desaturate accents to blend elegantly with neutrals.
+没有任何字体或颜色是绝对禁用的。问题在于无上下文地默认使用，而不是它们本身。
 
-## 4. LAYOUT DIVERSIFICATION
+## 4. 色彩角色
 
-* **ANTI-CENTER BIAS:** Centered Hero/H1 sections are strictly BANNED when `DESIGN_VARIANCE > 4`. Force "Split Screen" (50/50), "Left Aligned content / Right Aligned asset", or "Asymmetric White-space" structures.
-* **Grid over Flex-Math:** Prefer CSS Grid-style column structures for reliable, predictable layouts rather than complex percentage math.
-* **Contain page layouts** within a max-width boundary (e.g., ~1400px centered) to prevent content from stretching too wide.
-* **Responsive consideration:** For high-variance designs, asymmetric layouts on wider viewports MUST fall back to a single-column layout on narrow viewports.
+先定义角色再填色：
 
-## 5. MATERIALITY, SHADOWS & SURFACE TREATMENT
+- Background：主背景
+- Surface：需要分层时的表面
+- Text：主要文字
+- Muted：次要文字与结构线
+- Accent：动作或结论
+- Semantic：仅在数据和状态需要时添加
 
-* **DASHBOARD HARDENING:** For `VISUAL_DENSITY > 7`, generic card containers are BANNED. Use dividers, separators, or purely negative space to group data. Metrics should breathe without being boxed in.
-* **Card usage:** Use cards ONLY when elevation communicates hierarchy. When a shadow is used, tint it to the background hue for a natural look.
-* **"Liquid Glass" Refraction:** When glassmorphism is needed, go beyond simple blur. Add a 1px inner border (white at ~10% opacity) and a subtle inner shadow to simulate physical edge refraction.
-* **NO Neon/Outer Glows:** Do not use default outer glow shadows. Use inner borders or subtle tinted shadows instead.
+强调色通常只选一个。不要把所有模块染成不同颜色；语义色不要和装饰色冲突。近黑比纯黑更自然，但在印刷或品牌要求下纯黑也可以使用。
 
-## 6. DESIGN VARIANCE LEVELS
+## 5. 网格、间距与容器
 
-### DESIGN_VARIANCE (1–10)
-* **1–3 (Predictable):** Centered layouts, strict symmetrical grids, equal paddings.
-* **4–7 (Offset):** Overlapping elements, varied image aspect ratios (e.g., 4:3 next to 16:9), left-aligned headers over center-aligned data.
-* **8–10 (Asymmetric):** Masonry layouts, fractional column grids (e.g., 2fr 1fr 1fr), massive empty zones for dramatic negative space.
+- 用一套间距尺度，例如 4 / 8 / 12 / 16 / 24 / 32 / 48 / 72。
+- 使用网格或共享边线，避免凭感觉摆放。
+- 相关内容靠近，无关内容拉开；组间间距应明显大于组内。
+- 卡片只在“独立对象、可操作单元或真实层级”需要边界时使用。
+- 高密度信息优先用分隔线、列、底色带和负空间，不要给每个数字套卡片。
+- 圆角、边框和阴影是一套系统；不要每个组件不同。
 
-### MOTION_INTENSITY (1–10)
-* **1–3 (Static):** No automatic animations. Hover and active states only.
-* **4–7 (Fluid):** Subtle transitions, staggered load-in sequences.
-* **8–10 (Advanced Choreography):** Complex scroll-triggered reveals, parallax depth effects.
+## 6. 图像与图形语言
 
-### VISUAL_DENSITY (1–10)
-* **1–3 (Art Gallery Mode):** Lots of white space. Huge section gaps. Clean and expensive feel.
-* **4–7 (Daily App Mode):** Normal spacing for standard apps.
-* **8–10 (Cockpit Mode):** Tiny paddings, 1px separators, packed data. Monospace for all numbers.
+- 照片、插画、图标和图表都应服务于同一 art direction。
+- 同一项目统一照片色温、裁切逻辑和处理方式。
+- 图标统一线宽、端点、圆角和视图框。
+- 装饰图形重复一种几何 DNA，形成识别，而不是每页发明新花样。
+- 视觉素材需要情绪或信息价值；没有价值就删除。
 
-## 7. INTERACTIVE STATES
+## 7. 质感控制
 
-Even in static design compositions, plan for full interaction cycles:
-* **Loading:** Skeleton loaders matching layout sizes (not generic spinners).
-* **Empty States:** Beautifully composed empty states showing how to populate data.
-* **Error States:** Clear, inline error indication (especially for forms).
-* **Tactile Feedback:** Active states with subtle scale or translate to simulate physical press.
+高级感更多来自精确比例和克制，而非效果数量：
 
-## 8. FORM & DATA PATTERNS
+- 一次只使用一种主要材质语言，如纸张、磨砂玻璃、金属或颗粒。
+- 阴影使用背景色相的低透明度，避免默认黑色大阴影。
+- 渐变应解释光线、空间或品牌，不作默认背景填充。
+- 纹理在 100% 视图下可感知、在缩略图下不抢内容。
+- 动效只强化状态变化和阅读顺序；尊重 `prefers-reduced-motion`。
 
-* **Forms:** Label MUST sit above input. Helper text optional. Error text below input. Consistent vertical spacing between input blocks.
-* **NO 3-Column Card Layouts:** The generic "3 equal cards horizontally" feature row is BANNED. Use a 2-column Zig-Zag, asymmetric grid, or horizontal scrolling approach.
+## 8. 常见 AI 模板痕迹
 
-## 9. AI TELLS — FORBIDDEN PATTERNS
+发现以下模式时先问它是否真的服务内容：
 
-To guarantee premium, non-generic output, strictly avoid these common AI design signatures:
+- 居中 Hero + 渐变大标题 + 两个胶囊按钮
+- 三张等宽功能卡 + 相同线性图标
+- 所有信息都放在圆角卡片中
+- 每个 section 都是同样的标题、说明、卡片网格
+- 过多徽章、微型标签和无意义状态点
+- 默认紫蓝光晕、玻璃、网格背景和漂浮球体
+- 假数据整齐得不真实，或人名、品牌名像占位符
+- 视觉很多但没有一个具体领域线索
 
-### Visual
-* **NO Neon/Outer Glows** — use inner borders or subtle tinted shadows
-* **NO Pure Black (#000000)** — use Off-Black or Zinc-950
-* **NO Oversaturated Accents** — desaturate to blend with neutrals
-* **NO Excessive Gradient Text** — avoid text-fill gradients on large headers
-* **NO Custom Mouse Cursors** — outdated and disruptive
+修复方法不是简单禁止某种元素，而是回到 Design Contract：强化任务特异性、选择一个记忆点、删掉重复结构。
 
-### Typography
-* **NO Inter Font** — use `Geist`, `Outfit`, `Cabinet Grotesk`, or `Satoshi`
-* **NO Oversized H1s** — control hierarchy with weight and color, not massive scale
-* **Serif Constraints** — Serif ONLY for creative/editorial, NEVER on Dashboards
+## 9. 互动状态
 
-### Layout & Spacing
-* **Align & Space Perfectly** — padding and margins must be mathematically precise
-* **NO 3-Column Equal Cards** — use Zig-Zag, asymmetric grid, or horizontal scroll
-
-### Content & Data (The "Jane Doe" Effect)
-* **NO Generic Names** — "John Doe", "Sarah Chan" are banned. Use creative, realistic-sounding names.
-* **NO Generic Avatars** — no standard "egg" or user icons. Use creative, believable photo placeholders or specific styling.
-* **NO Fake Numbers** — avoid `99.99%`, `50%`. Use organic data (`47.2%`, `+1 (312) 847-1928`).
-* **NO Startup Slop Names** — "Acme", "Nexus", "SmartFlow" are banned. Invent premium, contextual brand names.
-* **NO Filler Words** — avoid "Elevate", "Seamless", "Unleash", "Next-Gen". Use concrete verbs.
-
-### External Resources
-* **NO Broken Unsplash Links** — use reliable placeholders like `https://picsum.photos/seed/{random_string}/800/600` or SVG UI Avatars.
-
-## 10. THE CREATIVE ARSENAL (Design Inspiration)
-
-Do not default to generic UI. Pull from this library of advanced visual concepts:
-
-### Hero Sections
-* Stop centering text over a dark image. Try asymmetric heroes: Text aligned to one side. Background with high-quality imagery featuring subtle fade into the background color.
-
-### Navigation & Menus
-* Mac OS Dock Magnification — icons scale fluidly on hover
-* Magnetic Button — buttons that pull toward the cursor
-* Gooey Menu — sub-items detach like viscous liquid
-* Dynamic Island — pill-shaped component that morphs for status/alerts
-* Contextual Radial Menu — circular menu expanding at click coordinates
-* Floating Speed Dial — FAB that springs out secondary actions in a curve
-* Mega Menu Reveal — full-screen dropdowns with staggered content
-
-### Layout & Grids
-* Bento Grid — asymmetric, tile-based grouping (Apple Control Center style)
-* Masonry Layout — staggered grid without fixed row heights (Pinterest style)
-* Chroma Grid — grid borders showing subtle animating color gradients
-* Split Screen Scroll — two halves sliding in opposite directions
-* Curtain Reveal — hero parting in the middle like a curtain
-
-### Cards & Containers
-* Parallax Tilt Card — 3D-tilting card tracking mouse position
-* Spotlight Border Card — borders illuminating dynamically under cursor
-* Glassmorphism Panel — true frosted glass with inner refraction
-* Holographic Foil Card — iridescent rainbow reflections shifting on hover
-* Tinder Swipe Stack — physical stack of cards users can swipe
-* Morphing Modal — button expanding seamlessly into full-screen dialog
-
-### Scroll Animations
-* Sticky Scroll Stack — cards sticking to top and stacking over each other
-* Horizontal Scroll Hijack — vertical scroll translating into horizontal pan
-* Zoom Parallax — central image zooming as user scrolls
-* Scroll Progress Path — SVG lines drawing themselves on scroll
-* Liquid Swipe Transition — page transitions wiping like viscous liquid
-
-### Galleries & Media
-* Dome Gallery — 3D panoramic dome feel
-* Coverflow Carousel — 3D carousel with center focused, edges angled
-* Drag-to-Pan Grid — boundless grid draggable in any direction
-* Accordion Image Slider — narrow strips expanding fully on hover
-* Hover Image Trail — mouse leaving a trail of popping/fading images
-* Glitch Effect Image — brief RGB-channel shifting on hover
-
-### Typography & Text Effects
-* Kinetic Marquee — endless text bands reversing direction on scroll
-* Text Mask Reveal — massive typography as transparent window to video
-* Text Scramble Effect — matrix-style character decoding on load/hover
-* Circular Text Path — text curved along a spinning circular path
-* Gradient Stroke Animation — outlined text with gradient running along stroke
-* Kinetic Typography Grid — grid of letters dodging/rotating away from cursor
-
-### Micro-Interactions & Effects
-* Particle Explosion Button — CTAs shattering into particles on success
-* Skeleton Shimmer — shifting light reflections across placeholder boxes
-* Directional Hover Aware Button — hover fill entering from mouse entry side
-* Ripple Click Effect — waves rippling from click coordinates
-* Animated SVG Line Drawing — vectors drawing their own contours
-* Mesh Gradient Background — organic, lava-lamp-like animated color blobs
-* Lens Blur Depth — dynamic focus blurring background to highlight foreground
-
-## 11. BENTO GRID PARADIGM
-
-When generating modern SaaS dashboards or feature sections, use this "Bento 2.0" architecture:
-
-### Core Design Philosophy
-* **Aesthetic:** High-end, minimal, and functional.
-* **Palette:** Light background (~#f9fafb). Cards are pure white (#ffffff) with a subtle 1px border.
-* **Surfaces:** Large rounded corners (~2.5rem) for major containers. Use a "diffusion shadow" (very light, wide-spreading) for depth without clutter.
-* **Typography:** Strict `Geist`, `Satoshi`, or `Cabinet Grotesk` font stack with tight tracking for headers.
-* **Labels:** Titles and descriptions placed outside and below cards for clean gallery-style presentation.
-* **Spacing:** Generous padding (32–40px) inside cards.
-
-### Card Archetypes for Bento Grids
-Suggested layout: Row 1 with 3 columns | Row 2 with 2 columns (70/30 split):
-
-1. **The Intelligent List** — vertical stack with auto-sorting visual, simulating AI-driven prioritization
-2. **The Command Input** — search/AI bar with typewriter cycling through prompts, blinking cursor, processing shimmer
-3. **The Live Status** — scheduling interface with breathing status indicators and notification badges
-4. **The Wide Data Stream** — horizontal infinite carousel of metrics, seamless and effortless
-5. **The Contextual UI (Focus Mode)** — document view with staggered highlights and floating action toolbar
+界面类交付物至少考虑 Loading / Empty / Error / Success / Disabled / Focus。状态应沿用同一布局和视觉系统，不使用空白页面或通用 spinner 代替设计。

@@ -1,128 +1,86 @@
-# HTML 分析报告输出规范
+# HTML Reports, Dashboards & Data Stories
 
-> Portable reference. 分析 / 对比 / 研报型回答产出 HTML 文件时遵循本规范。
-> 简短 Q&A、单数字查询、Yes-No 判断仍用 Markdown，不必出 HTML。
+## 1. 先选产品形态
 
-## 0. 交付前必做：JS 语法自检（最高优先级）
+- **Executive brief**：结论先行，适合管理层和快速分享；通常浅色、编辑感、单页滚动。
+- **Research report**：证据、来源、方法与注释完整；适合研报和深度分析。
+- **Dashboard**：持续监控、筛选和比较；强调状态与操作，不追求叙事滚动。
+- **Scrollytelling**：按故事顺序揭示数据；适合公众传播，但必须保持可访问的静态内容。
 
-HTML 里手写的内联 `<script>`（尤其图表的 `option`）**极易出现括号 / 引号配对错误**——
-多层嵌套对象、箭头函数 `s=>({...})`、字符串字面量跨行，自己读一遍看不出来，
-但只要有一处失配，整个 `<script>` 块就 `SyntaxError`，该页**所有图表全部不渲染**
-（不是一个图空，是全空）。这是 HTML 报告最高频的致命缺陷。
+不要把所有 HTML 都做成深色 SaaS 仪表盘。
 
-所以 **HTML 写完、交付给用户之前，必须对内联 JS 做一次语法校验**：
+## 2. 内容架构
+
+分析型页面建议按下面顺序选择：
+
+1. Title / scope / date / source status
+2. Executive summary：一句判断 + 3–5 个关键证据
+3. Context：问题、范围和口径
+4. Evidence sections：每段一个结论标题和一组证据
+5. Implications / scenarios / recommendation
+6. Methodology, sources and caveats
+
+标题写结论，不写“数据分析”“市场趋势”等空泛章节名。首屏让读者在 10 秒内理解核心判断。
+
+## 3. 页面系统
+
+- 使用 CSS 自定义变量定义颜色、字体、间距、圆角和内容宽度。
+- 正文阅读列通常控制在约 60–75 个字符；图表和表格可突破阅读列进入宽内容区。
+- 建立 Summary / Section header / Insight callout / Chart frame / Source note / Data table 等少量组件。
+- 高密度报告用边线、背景带和列组织信息，不给每个模块加阴影卡片。
+- 数字使用 tabular figures，单位和时间范围始终可见。
+
+## 4. 图表选择
+
+先写出读者要回答的问题，再选图：
+
+| 问题 | 优先图形 |
+|---|---|
+| 随时间如何变化 | 折线、面积、K 线 |
+| 类别谁高谁低 | 排序条形图、点图 |
+| 组成如何变化 | 堆叠条形、100% 堆叠；类别很少时用环形 |
+| 分布与离群 | 直方、箱线、散点 |
+| 两变量关系 | 散点、气泡；必要时加趋势线 |
+| 流程、关系、产业链 | SVG / HTML 结构图 |
+| 精确查阅 | 表格 |
+
+### 图表规则
+
+- 每张图只突出一个洞察；标题直接写洞察。
+- 直接标注关键序列，减少读者在图例和图之间来回找。
+- 同一语义在全页使用同一颜色；颜色不够时用线型、形状和明暗。
+- 轴从零开始与否要符合图表类型并避免误导；截断时明确说明。
+- 空值、零值和缺失值不要混为一谈。
+- 双轴只有在关系明确且标注充分时使用；否则拆图或指数化。
+- 提供数据来源、时间范围、单位和必要方法说明。
+- 数据密集模块可提供图/表切换，让趋势和精确值都可用。
+
+## 5. HTML 实现
+
+- 默认生成语义化、响应式的单文件 HTML；若外部资源较大，可使用清晰的相对目录结构。
+- 对核心内容不要依赖 JavaScript 才能出现；脚本失败时至少保留标题、结论和数据表。
+- 图表库按环境选择。使用 CDN 时保证 URL 稳定，并让页面在加载失败时显示明确提示。
+- 每个图表容器设置明确高度，并监听容器或窗口尺寸变化。
+- 不使用重复 ID；本地图片、字体和脚本路径必须真实存在。
+- 动效遵循 `prefers-reduced-motion`，打印样式隐藏交互控件并保持来源可见。
+
+## 6. 交付前验证
+
+从 skill 根目录运行，或用环境中的等价工具：
 
 ```bash
-# 把 HTML 里的内联 <script> 体抽出来存成 .js，再校验；任意一种等价方式均可
-node --check /tmp/_check.js          # 通过则静默，报错会精确指出行列
+node scripts/check_html.mjs path/to/report.html
+node scripts/render_html.mjs path/to/report.html --output path/to/desktop.png --width 1440 --height 1000
+node scripts/render_html.mjs path/to/report.html --output path/to/mobile.png --width 390 --height 844
 ```
 
-- 报错 → 按提示定位那一行，修正括号 / 引号 / 逗号，**改到 `node --check` 通过为止**，再交付。
-- 没有 node 时，用 `python3 -c "import esprima"` 之类亦可；实在无工具，就**人工逐个 `setOption({...})` 数括号配平**，
-  重点查箭头函数返回对象 `=>({...})` 和多层 `series:[{...}]`。
-- 不要把「生成了 HTML 文件」当作完成——**图表能渲染才算完成**。
+然后实际查看截图：
 
-高发错误形态（写之前先警惕）：
-- `data:arr.map(s=>({value:s.a,itemStyle:{color:s.c}}))` —— `=>({` 配 `}))`，少一个 `)` 或多一个 `}` 都废
-- `formatter:'{b}: {c}%'` —— 字符串别跨行写，跨行会断裂
-- `series:[{...}}, {...}]` —— 嵌套对象结尾多一个 `}`
-- `legend:{data:['日K','量'], '日K'}` —— 对象里别混入游离裸值
+- 首屏是否先给结论，而不是大段背景？
+- 图表是否渲染、标签是否重叠、颜色是否可辨？
+- 1440px 和窄屏下是否有横向溢出？
+- 表格在窄屏是否采用合适的摘要或折叠方案？
+- 来源、时间、单位和 caveat 是否靠近相应证据？
+- 打印或导出 PDF 时是否断页合理？
 
-## 1. ECharts option 骨架（填 data，别从零手敲嵌套）
-
-复杂图（一页多图、雷达多 series、双轴、K 线）是括号失配重灾区。
-**优先套用下面骨架，只替换 data / 标签，不要从空白手写整个嵌套结构。** 套骨架能把失配率压到接近 0。
-
-引库（CDN 引入，放 `<head>`）：
-```html
-<script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
-```
-
-柱 / 折线（含双轴）：
-```javascript
-echarts.init(document.getElementById('chart1')).setOption({
-  tooltip: { trigger: 'axis' },
-  legend: { data: ['营收', '净利'] },
-  xAxis: { type: 'category', data: ['2023', '2024', '2025'] },
-  yAxis: [
-    { type: 'value', name: '营收(亿)' },
-    { type: 'value', name: '净利(亿)' }          // 量级差大时用第二根轴
-  ],
-  series: [
-    { name: '营收', type: 'bar',  data: [100, 120, 150] },
-    { name: '净利', type: 'line', yAxisIndex: 1, data: [10, 14, 20] }
-  ]
-});
-```
-
-饼 / 占比：
-```javascript
-echarts.init(document.getElementById('chart2')).setOption({
-  tooltip: { trigger: 'item', formatter: '{b}: {d}%' },
-  series: [{
-    type: 'pie', radius: ['40%', '70%'],
-    data: [
-      { name: '主业', value: 60 },
-      { name: '副业', value: 40 }
-    ]
-  }]
-});
-```
-
-雷达（多 series 注意每个对象单独闭合）：
-```javascript
-echarts.init(document.getElementById('chart3')).setOption({
-  legend: { data: ['公司A', '公司B'] },
-  radar: { indicator: [
-    { name: '盈利', max: 5 }, { name: '成长', max: 5 }, { name: '估值', max: 5 }
-  ]},
-  series: [{
-    type: 'radar',
-    data: [
-      { name: '公司A', value: [4.5, 3.5, 3.0] },
-      { name: '公司B', value: [4.0, 2.0, 4.5] }
-    ]
-  }]
-});
-```
-
-K 线：
-```javascript
-echarts.init(document.getElementById('kline')).setOption({
-  tooltip: { trigger: 'axis', axisPointer: { type: 'cross' } },
-  legend: { data: ['日K', '成交量'] },          // legend.data 只放名字数组，别混入裸字符串
-  xAxis: { type: 'category', data: dates },
-  yAxis: [{ scale: true }, { scale: true }],
-  series: [
-    { name: '日K', type: 'candlestick', data: ohlc },                 // ohlc: [[open,close,low,high],...]
-    { name: '成交量', type: 'bar', yAxisIndex: 1, data: vols }
-  ]
-});
-```
-
-每个图容器：`<div id="chart1" style="width:100%;height:360px;"></div>`。多图时 id 别重名。
-
-## 2. 整体风格
-
-- **浅底深字的研报风**，避免暗色仪表盘风或开篇大段文字。
-- **首屏结论先行**：放 TL;DR / 结论卡 / 关键数字模块，先给判断再展开论证。
-- 涨跌配色遵循**目标市场惯例**（如 A 股语境红涨绿跌；其他市场按当地惯例，避免想当然）。
-
-## 3. 图表分工
-
-- 趋势 / 对比 / 占比 / 分布等**有数值轴的数据图用 ECharts**，别堆一长串趋势型表格。
-- 产业链图谱 / 传导链 / 股权结构等**关系拓扑图用 SVG 或 HTML+CSS 盒子**
-  （规整结构用 CSS 盒子、复杂拓扑用 SVG，自行判断）。SVG/CSS 不依赖 JS，天然规避括号失配。
-- 查阅 / 多维对照型数据仍用表格。
-
-## 4. 图表质量细则
-
-- **图表可切换**：数字密集的趋势数据块做成「图 / 表可切换」（默认看图看趋势，一键切表查精确值），
-  别让图取代了精确数字——机构网页通行做法。
-- **取数多取一个完整周期消除空值**：做同比 / 环比趋势图前，优先让数据源多取一年
-  （如算 8 个季度同比就取 12 个季度），让模型不必自己算同比且图上不出现前段空值；
-  数据源确实受限时，以信息完整为先，宁可有少数空点也要把能展示的信息展全。
-- **双轴注意量级差**：同一图里量级差很大的两个序列（如营收数千亿 vs 净利数百亿）
-  不要共用一根轴（小的会被压成贴地条），用双轴或把小序列改折线。
-- **空值不入图**：某段完全没有数据的区间（如缺同比基数的早期季度）不要硬塞进图占位，
-  让 x 轴从有数据处起，或改用该段本就有值的绝对值口径。
+文件写出来但没有打开检查，不算完成。

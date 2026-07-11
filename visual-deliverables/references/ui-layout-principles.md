@@ -1,93 +1,75 @@
-# UI / Web Layout Principles
+# UI, Web & Landing Page Principles
 
-> Portable, de-branded from a UI-design skill. These are tool-agnostic product-design laws plus
-> layout patterns for web apps, landing pages, tables, and responsive/mobile. Use them whenever
-> the deliverable is an interface, dashboard, web page, or any screen-like artifact. They pair
-> with `visual-style-guide.md` (aesthetics) and `css-quality-recipes.md` (effects).
+## 1. 先确定页面任务
 
-## A. Universal Product-Design Laws (apply to ANY screen)
+每个页面回答三个问题：用户在哪里、此刻最重要的信息是什么、下一步能做什么。一个页面可以复杂，但不能让多个目标争夺主位。
 
-1. **Purpose First** — every screen answers one dominant question and supports one primary action.
-   Competing goals → separate surfaces.
-2. **Dominant Region** — one region carries the most visual weight; everything else is subordinate.
-   Avoid equal-weight, competing focal points.
-3. **Understandability** — labels clear, actions recognizable, icons never replace essential text,
-   system state visible. If a user must guess, redesign it.
-4. **Progressive Disclosure** — show essentials first; advanced controls contextual. Detail opens on
-   demand. Complexity allowed, confusion not.
-5. **Recognition Over Recall** — surface relevant actions when needed; predictable navigation;
-   consistent control placement.
-6. **System Status Visibility** — every data surface supports loading / empty / error / success /
-   permission states. No silent failure, no blank ambiguity.
-7. **Action Hierarchy** — one primary action per screen/section; secondary visually reduced;
-   destructive clearly distinct; rare actions in overflow.
-8. **Structural Consistency** — similar problems get similar solutions; stable nav logic; rhythm
-   feels system-driven; spacing follows one scale.
-9. **Density Intentionality** — Compact (high-data) / Medium (default) / Airy (low-complexity).
-   Don't mix modes arbitrarily within one screen.
-10. **Spatial Logic** — one dominant axis per screen; prefer two structural zones before three;
-    avoid nested scroll containers; whitespace for separation; decorative dividers only if functional.
-11. **Feedback & Response** — every action gets immediate acknowledgment, clear validation,
-    reversible where possible, destructive confirmed.
-12. **Responsiveness** — hierarchy survives all breakpoints. Mobile: single column, sheets/stacked
-    panels, no horizontal scroll. Desktop: multi-zone, higher density OK.
-13. **Entity Integrity** — for any entity (user/record/doc), show its name, status, key metadata,
-    obvious actions. Make it concrete.
-14. **Constraint Over Decoration** — if an element doesn't aid navigation/understanding/decision/
-    action, it shouldn't exist. As little design as possible.
-15. **Scalability** — more data/features extend patterns, not create chaos.
-16. **Adaptation Logic** — infer product type from the prompt, then derive dominant region, primary
-    action, density, disclosure level. Don't assume dashboards/tables/sidebars unless required.
+- 定义 primary action 和 secondary action。
+- 定义 dominant region：内容、工作区、数据图或产品视觉只能有一个主导。
+- 按用户任务组织信息，不按数据库字段或功能清单组织。
+- 复杂功能采用渐进披露，重要状态保持可见。
 
-## B. Landing Page / Marketing Site
+## 2. 页面骨架
 
-**Philosophy:** content before visuals. A landing page is a conversion engine, not artwork.
-Lead with the *transformation* the visitor wants, not the feature list.
+优先选择一个主结构：
 
-**Proven section pool** (pick, don't dump all): Header → Hero → Problem/Solution → Core Features
-→ Secondary Features Grid → Social Proof → Pricing → FAQ → Final CTA → Footer. Header/Hero/Footer
-are mandatory; the rest are selected per need.
+- **Single stage**：一个主要工作区，辅助控制收纳在顶部、侧边或浮层。
+- **Split view**：编辑/预览、列表/详情、内容/视觉。
+- **Hub + modules**：总览页，但模块之间必须有明显优先级。
+- **Narrative scroll**：落地页和数据故事，按结论顺序推进。
+- **Canvas**：地图、图表、白板等对象本身占主导。
 
-**Hero (most important — one screen):**
-- One clear idea; no feature lists competing for attention.
-- Headline states the promise/outcome (make sense on its own); subheadline clarifies the mechanism.
-- One primary CTA (+ optional lower-commitment secondary). One light credibility signal.
-- Layout: stacked vertically preferred; text+visual side-by-side allowed; if screenshot below text,
-  center the text. Fill most of the viewport before the fold.
-- Works **without** visuals — visuals support, not explain.
-- AI-generated images go in their own container, never as a text background fill.
+不要因为“像后台”就自动加入侧边栏、顶部栏和一排指标卡。
 
-**Visual rhythm & section alternation:** don't stack many text-only sections. After a heavy-text
-section, shift energy — imagery, mockup, bento, or card grid — so the page breathes.
+## 3. Landing Page
 
-**Avoid "AI slop":** choose distinctive characterful typefaces; commit to one cohesive theme; use
-motion deliberately (one crafted reveal beats scattered interactions); avoid flat solid backgrounds
-— add gradients/patterns/textures; avoid predictable boilerplate card rows; vary aesthetics across
-generations, never converge on the same safe choices.
+先完成内容叙事，再做视觉。常用 section 池如下，按目标选择，不要全部堆入：
 
-**Footer:** familiar structure (logo, link groups, legal), plus one bold decorative visual moment.
+Header → Hero → Problem / Transformation → Product proof → Core benefits → How it works → Social proof → Comparison / Pricing → FAQ → Final CTA → Footer
 
-**Product screenshots:** use placeholder boxes (1:1 or 16:9) labeled "Screenshot placeholder" —
-don't hand-draw fake UI inside them.
+### Hero
 
-## C. Tables
+- 一屏只讲一个承诺，标题独立阅读也成立。
+- 标题卖结果或转变，副标题解释产品机制。
+- 一个主 CTA，可选一个低承诺次 CTA；信任信号保持轻量。
+- 产品型页面优先展示真实产品或使用场景；情绪型品牌可使用氛围图。
+- 主体图像预留文字 quiet zone，避免把正文压在复杂背景上。
 
-- Structure: a **header row** (column titles) + one or more **data rows**. If no data given,
-  generate believable placeholder values (see AI-tells: no `99.99%`, use organic numbers).
-- Cell: fixed width, fills row height. Row: fills container width, fixed height.
-- **Responsive:** a wide multi-column table on mobile → convert to stacked **cards**, not a
-  horizontally scrolling table, unless explicitly required.
+### 节奏
 
-## D. Mobile / Responsive Composition
+- 连续 section 不要使用同一构图。
+- 在文本、产品视觉、数据、故事和社证之间交替能量。
+- 重复同一母题来保持品牌，变化块面比例来保持节奏。
+- Footer 保持熟悉的信息结构，同时可以承担最后一个品牌视觉时刻。
 
-- Wrap **all** content in one container: consistent left/right padding (16–20px) applied once;
-  vertical spacing via `gap` (24–32px between major sections, 12–16px within), not per-element
-  margins.
-- One primary intent per screen; first 1–2 elements answer "where am I / what can I do".
-- Single vertical scroll container; avoid nested scrolls. Sticky headers OK for filters/segmented
-  controls.
-- Touch targets comfortable; primary actions reachable in the lower half when one-handed.
-- Bottom navigation (pill tab bar): 3–5 top-level destinations, active state a **solid fill** (not
-  just a color shift), labels uppercase, respects safe-area inset; content gets bottom padding so
-  it isn't obscured.
-- Always design loading / empty / error / success as first-class states.
+## 4. Web App 与 Dashboard
+
+- 数据表面先呈现结论、异常和动作，再呈现完整数据。
+- 只有可独立操作或需要边界的对象才用卡片。
+- 表格数字右对齐，文本左对齐；表头、单位、排序和筛选清楚。
+- 图表标题写结论，注释关键点，来源和时间范围靠近图表。
+- 频繁操作可见，低频操作进入更多菜单；危险操作明显区分。
+- 空、错、加载、权限不足和成功状态都要设计。
+
+## 5. 表格
+
+- 保持表头与行结构稳定；冻结关键标识列和必要表头。
+- 使用列宽、对齐和数字格式帮助扫读，不依赖彩色背景。
+- 状态标签数量要少，颜色具有稳定语义。
+- 移动端优先转为摘要卡、折叠详情或分步视图；只有比较任务确实需要时才允许横向滚动。
+
+## 6. 响应式
+
+- 为宽屏和窄屏分别定义信息优先级，不只缩放尺寸。
+- 宽屏的分栏在窄屏按阅读顺序堆叠；装饰元素可隐藏。
+- 页面使用统一容器和边距，避免每个 section 自定义左右 padding。
+- 保持单一主滚动容器，避免嵌套滚动。
+- 触控目标和焦点状态清晰，固定底栏不遮挡内容。
+- 在 320–390px 宽度测试最长标题、表格和按钮，不用理想短文案验证。
+
+## 7. 可访问性与真实性
+
+- 使用语义 HTML、明确 label、键盘焦点和足够对比度。
+- 动效支持减少动态偏好；不要让信息只通过颜色或动画表达。
+- 无用户数据时使用明确标注的示例数据，保持有机但不误导。
+- 不伪造客户 Logo、认证、新闻引用或精确业务结果。

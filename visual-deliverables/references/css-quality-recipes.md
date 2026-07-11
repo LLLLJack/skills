@@ -1,138 +1,117 @@
-# CSS Quality Recipes — Composite Visual Effects
+# CSS Craft Recipes
 
-> Portable, de-branded from a design engine's layered-effect library. Each recipe maps the
-> engine's effect model directly to CSS so you can reproduce the same premium feel in plain
-> HTML/CSS. Use these to add "craft" **on top of** the baseline rules in `visual-style-guide.md`
-> — do NOT violate that file's AI-tells bans (e.g. no neon outer glow on *containers*; the neon
-> recipe here is text-only by design).
+这些配方用于实现 Design Contract 中已经选定的材质。每个页面通常只选一项主要配方；效果不能代替构图。
 
-## 1. Glassmorphism (毛玻璃)
-**Trigger keywords:** glass, frosted, translucent surface, backdrop-blur.
+## 1. Tinted depth｜带色深度
 
-- `backdrop-filter: blur(16px)` on the element
-- semi-transparent white fill `background: rgba(255,255,255,0.2)` (opacity **must be < 0.5**)
-- 1px white border at 15–30% opacity
-- elevation shadow + inner top highlight to simulate the physical edge "refraction"
+让阴影吸收背景色相，避免默认灰黑浮层：
+
+```css
+.surface {
+  border: 1px solid color-mix(in srgb, var(--ink) 10%, transparent);
+  box-shadow:
+    0 1px 0 rgb(255 255 255 / 0.45) inset,
+    0 18px 50px color-mix(in srgb, var(--accent) 9%, transparent);
+}
+```
+
+适合浅色产品页。高密度报告只保留边框或分隔线。
+
+## 2. Restrained glass｜克制玻璃
+
+玻璃需要背后有真实层次；空白背景上的 blur 没有意义。
 
 ```css
 .glass {
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15),
-              inset 0 1px 2px rgba(255, 255, 255, 0.2);
+  background: rgb(255 255 255 / 0.14);
+  border: 1px solid rgb(255 255 255 / 0.24);
+  box-shadow: 0 1px 0 rgb(255 255 255 / 0.18) inset;
+  backdrop-filter: blur(18px) saturate(115%);
 }
 ```
 
-> **Dark variant:** swap fill to `rgba(255,255,255,0.08)` on a dark background, keep the white
-> inner border — that inner edge is what sells the "glass" look.
+保证玻璃上的正文对比度，避免整个页面每一层都玻璃化。
 
-## 2. Neon Glow (霓虹发光文字)
-**Trigger keywords:** neon, glow text, ambient-glow.
+## 3. Paper grain｜纸张颗粒
 
-Apply 4–6 layered `text-shadow` **on the text node itself**, radius decreasing and opacity
-increasing from outer to inner. Adjust the RGB to your brand accent.
+用极低透明度纹理打破数字平滑感：
 
 ```css
-.neon {
-  color: #cfe0ff;
-  text-shadow:
-    0 0 80px rgba(51, 102, 255, 0.10),
-    0 0 40px rgba(51, 102, 255, 0.25),
-    0 0 20px rgba(51, 102, 255, 0.50),
-    0 0 10px rgba(51, 102, 255, 0.80),
-    0 0  4px rgba(51, 102, 255, 1.00);
-}
-```
-
-> Use on a **single accent word**, never body text. This respects the "no outer glow on
-> containers" ban — it is text-only by design.
-
-## 3. Metallic / Chrome (金属 / 铬)
-**Trigger keywords:** metallic, chrome, multi-stop-gradient.
-
-`linear-gradient(45deg, …)` with **5 stops alternating dark → light → dark → light → dark**.
-The metallic feel comes from the *contrast and alternation frequency* between stops, not from
-saturation.
-
-```css
-.metallic {
-  background: linear-gradient(45deg,
-    #bec3c9 0%, #f0f0f0 25%, #8e92a0 50%, #e8e8e8 75%, #6c7080 100%);
-  /* stamped feel: inner top highlight + bottom shade */
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3),
-              inset 0 -1px 2px rgba(255, 255, 255, 0.2);
-}
-```
-
-## 4. Glow Border (发光边框)
-**Trigger keywords:** glow border, accent-tinted border, inner-glow.
-
-Two `inset` shadows (zero offset, accent color, radius 2–6) + one outer `box-shadow` for ambient
-glow. Best on smaller elements / buttons / chips.
-
-```css
-.glow-border {
-  border: 1px solid rgba(51, 102, 255, 0.6);
-  box-shadow:
-    inset 0 0 4px rgba(51, 102, 255, 0.8),
-    inset 0 0 8px rgba(51, 102, 255, 0.4),
-    0 0 16px rgba(51, 102, 255, 0.2);
-}
-```
-
-## 5. Iridescent / Holographic (虹彩 / 全息)
-**Trigger keywords:** iridescent, holographic, oil-slick.
-
-`conic-gradient` with 6–8 evenly distributed hues + a `radial-gradient` highlight in `screen`
-blend (use a `::after` pseudo-element with `mix-blend-mode: screen`). Base color must not be
-too dark or the effect washes out.
-
-```css
-.iridescent {
-  position: relative;
-  background: conic-gradient(from 0deg,
-    #ff3366, #ff9944, #ccff33, #33ff99, #3399ff, #9933ff, #ff3366);
-}
-.iridescent::after {
+.paper { position: relative; }
+.paper::after {
   content: "";
-  position: absolute; inset: 0;
-  background: radial-gradient(circle at center,
-    rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0) 70%);
-  mix-blend-mode: screen;
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: .035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.7'/%3E%3C/svg%3E");
+  mix-blend-mode: multiply;
 }
 ```
 
-## 6. Neumorphism (新拟态 / Soft-UI)
-**Trigger keywords:** neumorphism, soft-ui, dual-shadow.
+适合编辑、档案和静奢方向；不要覆盖交互层。
 
-Background and element share the **same** color (e.g. `#E0E5EC`). Background must NOT be pure
-white or pure black.
+## 4. Precision hairline｜精密细线
 
 ```css
-/* Raised (凸起) */
-.neu-raised {
-  background: #e0e5ec;
-  box-shadow: -6px -6px 8px rgba(255, 255, 255, 0.8),
-               6px  6px 8px rgba(163, 177, 198, 0.5);
-}
-/* Recessed / pressed (凹陷) */
-.neu-recessed {
-  background: #e0e5ec;
-  box-shadow: inset 4px 4px 8px rgba(163, 177, 198, 0.5),
-              inset -4px -4px 8px rgba(255, 255, 255, 0.8);
+.hairline {
+  border: 1px solid transparent;
+  background:
+    linear-gradient(var(--surface), var(--surface)) padding-box,
+    linear-gradient(115deg, rgb(255 255 255 / .45), rgb(255 255 255 / .05)) border-box;
 }
 ```
 
-## Porting note (engine → CSS)
+适合暗色工业界面。只强调结构边缘，不添加外发光。
 
-The original design engine modeled these as stacked effect layers and used a
-`showShadowBehindNode` flag: set `false` when the node has a semi-transparent fill (opacity < 1)
-so the shadow doesn't bleed through, `true` when fully opaque. In CSS this is automatic:
+## 5. Metallic band｜金属带
 
-- A drop shadow is always drawn **behind** the element — no flag needed.
-- For semi-transparent fills, the **inner highlight** (`inset` shadow / white inner border) is
-  what keeps the edge crisp. That is the CSS equivalent of the engine's edge-refraction trick.
+```css
+.metal {
+  background: linear-gradient(105deg,
+    #6f7379 0%, #d8d9da 18%, #8b8e93 36%,
+    #f2f2ef 52%, #878a90 71%, #c8c9ca 86%, #686b70 100%);
+  box-shadow: inset 0 1px 1px rgb(255 255 255 / .35),
+              inset 0 -1px 1px rgb(0 0 0 / .25);
+}
+```
 
-No kernel needed for any of the above — all six run in a plain browser.
+只用于小面积标签、分隔或产品细节，不用于整页正文背景。
+
+## 6. Controlled glow｜受控光晕
+
+光源应有位置和原因：
+
+```css
+.lit-stage {
+  background:
+    radial-gradient(circle at 72% 28%, rgb(var(--accent-rgb) / .18), transparent 32%),
+    linear-gradient(180deg, #111317, #090a0c);
+}
+```
+
+让光照亮主体或数据，不给每个容器单独加 glow。
+
+## 7. Motion with restraint｜克制动效
+
+```css
+@media (prefers-reduced-motion: no-preference) {
+  .reveal {
+    animation: reveal .65s cubic-bezier(.2,.8,.2,1) both;
+  }
+  @keyframes reveal {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+}
+```
+
+一组内容使用同一动效并轻微错峰。不要同时使用漂浮、旋转、视差和粒子。
+
+## 8. Chart finish｜图表收尾
+
+- 网格线降低到正文对比度的 10–18%。
+- 轴线和边框能删则删；直接标注关键序列。
+- 高亮一条主序列，其余降到中性灰。
+- 数字使用 tabular figures：`font-variant-numeric: tabular-nums;`。
+- tooltip、图例和页面字体保持一致。

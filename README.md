@@ -8,7 +8,7 @@ This repository contains a growing collection of reusable AI agent skills. Each 
 
 | Skill | 说明 |
 |---|---|
-| [`visual-deliverables`](./visual-deliverables/) | 指导生成好看、专业、可分享的 HTML 报告、幻灯片、图表及其他视觉化交付物。 |
+| [`visual-deliverables`](./visual-deliverables/) | 为不同 Agent 提供可移植的视觉生产流程，用于专业 HTML 报告、网页、幻灯片、海报、图表及其他可分享交付物。 |
 
 ## 使用方式
 
