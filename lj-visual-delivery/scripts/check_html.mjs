@@ -64,7 +64,7 @@ for (const input of inputs) {
 
     scriptIndex += 1;
     const ext = isModule ? "mjs" : "js";
-    const temp = path.join(os.tmpdir(), `visual-deliverables-${process.pid}-${scriptIndex}.${ext}`);
+    const temp = path.join(os.tmpdir(), `lj-visual-delivery-${process.pid}-${scriptIndex}.${ext}`);
     try {
       fs.writeFileSync(temp, code, "utf8");
       const result = spawnSync(process.execPath, ["--check", temp], { encoding: "utf8" });
