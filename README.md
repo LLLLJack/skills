@@ -1,22 +1,22 @@
 # Skills
 
-这是一个个人维护的 AI Agent Skills 仓库，目前包含 [`lj-visual-delivery`](./lj-visual-delivery/)。
+This is a personally maintained repository of AI agent skills, currently including [`lj-visual-delivery`](./lj-visual-delivery/).
 
-它用于创建、改版或润色各类视觉交付物，例如 HTML 报告、网页、落地页、幻灯片、海报、图表和信息图。
+It is designed for creating, redesigning, or polishing visual deliverables such as HTML reports, web pages, landing pages, slide decks, posters, charts, and infographics.
 
-后续有好用的 Skill，也会继续补充进来。
+More useful skills may be added over time as they are refined and proven in practice.
 
-## 使用方式
+## Usage
 
-将 `lj-visual-delivery` 目录复制或链接到 Agent 使用的 Skills 目录，或直接把本地路径提供给支持本地 Skills 的 Agent。
+Copy or symlink the `lj-visual-delivery` directory into the skills directory used by your agent, or provide its local path directly to any agent that supports local skills.
 
-调用示例：
+Example:
 
 ```text
-使用 $lj-visual-delivery，把这份分析制作成一份专业的 HTML 报告。
+Use $lj-visual-delivery to turn this analysis into a polished HTML report.
 ```
 
-## 目录
+## Structure
 
 ```text
 skills/
@@ -28,6 +28,6 @@ skills/
     └── scripts/
 ```
 
-## 许可证
+## License
 
-本仓库使用 [MIT License](./LICENSE)。
+This repository is licensed under the [MIT License](./LICENSE).
