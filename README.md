@@ -1,6 +1,6 @@
 # Skills
 
-This is a personally maintained repository of AI agent skills, currently including [`lj-visual-delivery`](./lj-visual-delivery/).
+This is a personal repository of AI agent skills, currently including [`lj-visual-delivery`](./lj-visual-delivery/).
 
 It is designed for creating, redesigning, or polishing visual deliverables such as HTML reports, web pages, landing pages, slide decks, posters, charts, and infographics.
 
